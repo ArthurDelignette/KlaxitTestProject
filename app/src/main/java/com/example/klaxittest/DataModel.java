@@ -55,6 +55,9 @@ public class DataModel {
 
     public String getName() {
         return name;
+
+
+
     }
 
     public String getImage() {
