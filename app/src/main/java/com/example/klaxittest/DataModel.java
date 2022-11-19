@@ -1,66 +1,88 @@
+
 package com.example.klaxittest;
 
+import java.util.List;
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class DataModel {
 
-    /*
-    {
-     "type":"FeatureCollection",
-     "version":"draft",
-     "features":[
-        {
-           "type":"Feature",
-           "geometry":{
-              "type":"Point",
-              "coordinates":[
-                 2.290084,
-                 49.897443
-              ]
-           },
-           "properties":{
-              "label":"8 Boulevard du Port 80000 Amiens",
-              "score":0.49159121588068583,
-              "housenumber":"8",
-              "id":"80021_6590_00008",
-              "type":"housenumber",
-              "name":"8 Boulevard du Port",
-              "postcode":"80000",
-              "citycode":"80021",
-              "x":648952.58,
-              "y":6977867.25,
-              "city":"Amiens",
-              "context":"80, Somme, Hauts-de-France",
-              "importance":0.6706612694243868,
-              "street":"Boulevard du Port"
-           }
-        }
-     ],
-     "attribution":"BAN",
-     "licence":"ODbL 1.0",
-     "query":"8 bd du port",
-     "limit":1
-  }*/
+    @SerializedName("type")
+    @Expose
+    private String type;
+    @SerializedName("version")
+    @Expose
+    private String version;
+    @SerializedName("features")
+    @Expose
+    private List<Feature> features = null;
+    @SerializedName("attribution")
+    @Expose
+    private String attribution;
+    @SerializedName("licence")
+    @Expose
+    private String licence;
+    @SerializedName("query")
+    @Expose
+    private String query;
+    @SerializedName("limit")
+    @Expose
+    private Integer limit;
 
-    private int id;
-    private String name;
-    private String image;
-
-    //Getters
-
-
-    public int getId() {
-        return id;
+    public String getType() {
+        return type;
     }
 
-    public String getName() {
-        return name;
-
-
-
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public String getImage() {
-        return image;
+    public String getVersion() {
+        return version;
     }
+
+    public void setVersion(String version) {
+        this.version = version;
+    }
+
+    public List<Feature> getFeatures() {
+        return features;
+    }
+
+    public void setFeatures(List<Feature> features) {
+        this.features = features;
+    }
+
+    public String getAttribution() {
+        return attribution;
+    }
+
+    public void setAttribution(String attribution) {
+        this.attribution = attribution;
+    }
+
+    public String getLicence() {
+        return licence;
+    }
+
+    public void setLicence(String licence) {
+        this.licence = licence;
+    }
+
+    public String getQuery() {
+        return query;
+    }
+
+    public void setQuery(String query) {
+        this.query = query;
+    }
+
+    public Integer getLimit() {
+        return limit;
+    }
+
+    public void setLimit(Integer limit) {
+        this.limit = limit;
+    }
+
 }
