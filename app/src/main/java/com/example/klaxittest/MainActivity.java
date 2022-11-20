@@ -1,15 +1,11 @@
 package com.example.klaxittest;
 
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
+import android.content.Intent;
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatTextView;
-
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Bundle;
 
 public class MainActivity extends AppCompatActivity {
     private AppCompatButton addButton;
