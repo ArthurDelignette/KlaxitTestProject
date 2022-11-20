@@ -1,11 +1,19 @@
 package com.example.klaxittest;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatTextView;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.MediaType;
@@ -21,10 +29,7 @@ public class Adress extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adress);
-        TextView textView = findViewById(R.id.text);
 
-        //Retrofit builder url = https://run.mocky.io/v3/c38ef967-0c43-4cbb-b4a0-1f330e2d33b7
-        // https://api-adresse.data.gouv.fr/search/?q=8+bd+du+port
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://api-adresse.data.gouv.fr/search/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -33,24 +38,30 @@ public class Adress extends AppCompatActivity {
         //Instance for interface
         MyAPICall myAPICall = retrofit.create(MyAPICall.class);
 
-        Call<DataModel> call = myAPICall.getData("?q=" +"8+bd+du+port");
+        Call<DataModel> call = myAPICall.getData("?q=" +"8+bd+du+port" + "&limit=4");
+
+        ArrayList<String> autoCompleteArray = new ArrayList<>();
+
+        AutoCompleteTextView textView = (AutoCompleteTextView) findViewById(R.id.inputText);
+
 
         call.enqueue(new Callback<DataModel>() {
             @Override
             public void onResponse(Call<DataModel> call, Response<DataModel> response) {
                 //Checking for the response
                 if(response.code() != 200){
-                    textView.setText("Check the connection");
+                    Log.d("oioioi", String.valueOf(response.code()));
                     return;
                 }
+
+                autoCompleteArray.clear();
 
                 //Get the data into textView
                 List<Feature> list = response.body().getFeatures();
 
                 for(Feature f : list){
-                    textView.append(f.getProperties().getLabel());
+                   autoCompleteArray.add(f.getProperties().getLabel());
                 }
-                
             }
 
             @Override
@@ -58,5 +69,25 @@ public class Adress extends AppCompatActivity {
 
             }
         });
+
+        // Create the adapter and set it to the AutoCompleteTextView
+        ArrayAdapter<String> adapter =
+                new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, autoCompleteArray);
+        textView.setAdapter(adapter);
+        textView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = getIntent();
+                intent.putExtra("returnedData", adapterView.getItemAtPosition(i).toString());
+                setResult(RESULT_OK, intent);
+                finish();
+            }
+        });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
     }
 }

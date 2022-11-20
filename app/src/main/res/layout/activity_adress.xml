@@ -6,10 +6,22 @@
     android:layout_height="match_parent"
     tools:context=".Adress">
 
-    <TextView
-        android:id="@+id/text"
-        android:gravity="center"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineH40"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.4" />
+
+    <AutoCompleteTextView
+        android:id="@+id/inputText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/guidelineH40"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
